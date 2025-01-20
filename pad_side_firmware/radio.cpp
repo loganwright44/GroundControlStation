@@ -30,3 +30,7 @@ bool CommHandler::sendPacket(command_t& command) {
     return false;
   }
 }
+
+uint8_t CommHandler::isAvailable() {
+  return _radio.available();
+}

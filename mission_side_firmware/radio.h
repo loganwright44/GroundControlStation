@@ -15,6 +15,7 @@ public:
 
   void initialize(byte srcAddress[6] = "00001", byte destAddress[6] = "00002");
   bool sendPacket(command_t& command);
+  uint8_t isAvailable();
 
 private:
   RF24* _radio;
