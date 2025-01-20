@@ -67,7 +67,6 @@ void loop() {
   }
 }
 
-
 void lostConnection() {
   Serial.println("Connection lost!");
 

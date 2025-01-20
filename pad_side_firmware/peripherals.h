@@ -12,14 +12,16 @@
 class HolddownController {
 public:
   HolddownController(uint8_t numClamps);
-  ~HolddownController() {};
+  ~HolddownController() { delete _pwm; };
 
+  void initialize();
   void lock();
   void unlock();
+  
 private:
   uint8_t _numClamps;
   uint16_t _angle = 0;
-  Adafruit_PWMServoDriver _pwm;
+  Adafruit_PWMServoDriver* _pwm;
 };
 
 #endif
