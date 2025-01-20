@@ -2,7 +2,7 @@
 
 #define CE 9
 #define CSN 10
-#define INTERVAL_MS_TRANSMISSION 250
+#define INTERVAL_MS_TRANSMISSION 50
 
 CommHandler commHandler(CE, CSN);
 
@@ -30,6 +30,15 @@ void loop() {
   } else {
     Serial.println("Failed to receive ack. Packet not delivered.");
   }
-  
+
+  while (commHandler.isAvailable() == 0);
+  if (commHandler.isAvailable() > 0) {
+    commHandler.readPacket(&Message, sizeof(Message));
+    Serial.println("Message received!");
+    Serial.print(Message.message_id);
+    Serial.print("\t");
+    Serial.println(Message.value);
+  }
+
   delay(INTERVAL_MS_TRANSMISSION);
 }

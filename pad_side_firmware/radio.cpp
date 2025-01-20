@@ -32,5 +32,9 @@ bool CommHandler::sendPacket(command_t& command) {
 }
 
 uint8_t CommHandler::isAvailable() {
-  return _radio.available();
+  return _radio->available();
+}
+
+void CommHandler::readPacket(void* buf, uint8_t len) {
+  _radio->read(&buf, len);
 }

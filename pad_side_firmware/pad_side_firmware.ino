@@ -22,5 +22,22 @@ void setup() {
 }
 
 void loop() {
+  while (commHandler.isAvailable() == 0);
+  if (commHandler.isAvailable() > 0) {
+    commHandler.readPacket(&Command, sizeof(Command));
+    Serial.println("Command received!");
+    Serial.print(Command.command_id);
+    Serial.print("\t");
+    Serial.println(Command.value);
+  }
+
+  // Implement logic for message payload
+  Message.message_id = DEFAULT_TYPE;
+  Message.value = 123;
   
+  if (commHandler.sendPacket(Message)) {
+    Serial.println("Response sent!");
+  } else {
+    Serial.println("Could not respond to destination!");
+  }
 }
