@@ -15,6 +15,7 @@ public:
 
   void initialize(byte srcAddress[6] = "00001", byte destAddress[6] = "00002");
   bool sendPacket(command_t& command);
+  bool sendPacket(message_t& _message);
   uint8_t isAvailable();
   void readPacket(void* buf, uint8_t len);
 

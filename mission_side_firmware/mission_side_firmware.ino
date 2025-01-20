@@ -21,24 +21,9 @@ void loop() {
   Command.command_id = ENGAGE_HOLDDOWNS;
   Command.value = 0;
   
-  if (commHandler.sendPacket(Command)) {
-    Serial.print("Data1:");
-    Serial.println(Command.command_id);
-    Serial.print("Data2:");
-    Serial.println(Command.value);
-    Serial.println("Sent");
-  } else {
-    Serial.println("Failed to receive ack. Packet not delivered.");
+  while (!commHandler.sendPacket(Command)) {
+    delay(10);
   }
 
-  while (commHandler.isAvailable() == 0);
-  if (commHandler.isAvailable() > 0) {
-    commHandler.readPacket(&Message, sizeof(Message));
-    Serial.println("Message received!");
-    Serial.print(Message.message_id);
-    Serial.print("\t");
-    Serial.println(Message.value);
-  }
-
-  delay(INTERVAL_MS_TRANSMISSION);
+  Serial.println("Sent!");
 }
